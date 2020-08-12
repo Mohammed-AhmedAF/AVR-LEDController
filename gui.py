@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/bin/env python3
 import platform
 from tkinter import *
 from tkinter import ttk
@@ -22,16 +22,6 @@ statusLabel = Label(root,text="",relief=SUNKEN,anchor=W)
 def updateStatusbar(message):
     statusLabel['text'] = message
 
-def sendToggleSignal(id):
-    try:
-        ser.write(id.encode())
-        ser.write(b't')
-        ser.write(b't')
-        ser.write(b't')
-    except:
-        updateStatusbar("Unable to send " + id)
-
-
 #Connection elements
 portLabel = Label(connectionFrame,text="Port: ")
 baudrateLabel = Label(connectionFrame,text="Baudrate: ")
@@ -40,11 +30,45 @@ baudrateCmbox['values'] = [9600,19200,38400,57600,115200]
 baudrateCmbox.current(0)
 
 #Control elements
-toggleLED1Btn = Button(controlFrame,text="Toggle 1",command=partial(sendToggleSignal,'a'))
-toggleLED2Btn = Button(controlFrame,text="Toggle 2",command=partial(sendToggleSignal,'b'))
-toggleLED3Btn = Button(controlFrame,text="Toggle 3",command=partial(sendToggleSignal,'c'))
-toggleLED4Btn = Button(controlFrame,text="Toggle 4",command=partial(sendToggleSignal,'d'))
 
+led1Timer = ttk.Combobox(controlFrame,width="10",state="readonly")
+led1Timer['values'] = ['1','3','5','9','12']
+led1Timer.grid(row=1,column=0)
+led1Timer.current(0)
+
+led2Timer = ttk.Combobox(controlFrame,width="10",state="readonly")
+led2Timer['values'] = ['1','3','5','9','12']
+led2Timer.grid(row=1,column=1)
+led2Timer.current(0)
+
+led3Timer = ttk.Combobox(controlFrame,width="10",state="readonly")
+led3Timer['values'] = ['1','3','5','9','12']
+led3Timer.grid(row=1,column=2)
+led3Timer.current(0)
+
+def sendToggleSignal(id):
+    if (id == 'a'):
+        time = int(led1Timer.get()).to_bytes(1,'little')
+    elif (id == 'b'):
+        time = int(led2Timer.get()).to_bytes(1,'little')
+    elif (id == 'c'):
+        time = int(led2Timer.get()).to_bytes(1,'little')
+
+
+    try:
+        ser.write(id.encode())
+        ser.write(time)
+        ser.write(b't')
+        ser.write(b't')
+        updateStatusbar("Sent " + id)
+    except:
+        updateStatusbar("Unable to send " + id)
+
+
+toggleLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendToggleSignal,'a'))
+toggleLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendToggleSignal,'b'))
+toggleLED3Btn = Button(controlFrame,text="Toggle 3",width="10",command=partial(sendToggleSignal,'c'))
+toggleLED4Btn = Button(controlFrame,text="Toggle 4",width="10",command=partial(sendToggleSignal,'d'))
 
 #Port values defined based on OS
 if not (platform.system().startswith("Win")):

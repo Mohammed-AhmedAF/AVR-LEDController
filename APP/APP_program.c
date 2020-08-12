@@ -11,6 +11,8 @@ volatile u16 u16OVFCount = 0;
 volatile u8 u8Byte = 0;
 volatile u8 u8index = 0;
 volatile u8 u8MessageArray[MESSAGESIZE];
+volatile u8 u8TimeArr[4];
+volatile u8 u8SecFlag = 0;
 
 void APP_vidInit(void)
 {
@@ -22,7 +24,7 @@ void APP_vidInit(void)
 
 
 	/*Initiating timer*/
-//	TIMER0_vidInit(TIMER0_WGM_NORMAL,TIMER0_COM_NORMAL,TIMER0_CLK_1);
+	TIMER0_vidInit(TIMER0_WGM_NORMAL,TIMER0_COM_NORMAL,TIMER0_CLK_1);
 
 	/*Enabling timer interrupt*/
 	INTERRUPTS_vidEnableInterrupt(INTERRUPTS_TIMER0_OVF);
@@ -42,6 +44,11 @@ void APP_vidInit(void)
 void APP_vidCountOneSec(void)
 {
 	u16OVFCount++;
+	if (u16OVFCount == 31500)
+	{
+		u8SecFlag = 1;
+		u16OVFCount = 0;
+	}
 }
 
 void APP_vidReceiveControlFrame(void)
@@ -57,14 +64,22 @@ void APP_vidReceiveControlFrame(void)
 		if (u8MessageArray[0] == 'a')
 		{
 			DIO_vidTogglePin(DIO_PORTA,DIO_PIN0);
+			u8TimeArr[0] = u8MessageArray[1];
 		}
 		else if (u8MessageArray[0] == 'b')
 		{
 			DIO_vidTogglePin(DIO_PORTA,DIO_PIN1);
+			u8TimeArr[1] = u8MessageArray[1];
 		}
 		else if (u8MessageArray[0] == 'c')
 		{
 			DIO_vidTogglePin(DIO_PORTA,DIO_PIN2);
+			u8TimeArr[2] = u8MessageArray[1];
+		}
+		else if (u8MessageArray[0] == 'd')
+		{
+			DIO_vidTogglePin(DIO_PORTA,DIO_PIN3);
+			u8TimeArr[3] = u8MessageArray[1];
 		}
 		
 	}	
@@ -72,5 +87,20 @@ void APP_vidReceiveControlFrame(void)
 
 void APP_vidControl(void)
 {
-	
+	if (u8SecFlag == 1)
+	{
+	u8 u8LEDIndex = 0; 
+	for (u8LEDIndex	= 0; u8LEDIndex < 4; u8LEDIndex++)
+	{
+		u8TimeArr[u8LEDIndex] -= 1;
+		if (u8TimeArr[u8LEDIndex] == 0)
+		{
+			DIO_vidSetPinValue(DIO_PORTA,u8LEDIndex,STD_LOW);
+		}
+
+
+
+	}
+	u8SecFlag = 0;
+	}
 }
