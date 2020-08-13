@@ -46,13 +46,21 @@ led3Timer['values'] = ['1','3','5','9','12']
 led3Timer.grid(row=1,column=2)
 led3Timer.current(0)
 
+
+led4Timer = ttk.Combobox(controlFrame,width="10",state="readonly")
+led4Timer['values'] = ['1','3','5','9','12']
+led4Timer.grid(row=1,column=3)
+led4Timer.current(0)
+
 def sendToggleSignal(id):
     if (id == 'a'):
         time = int(led1Timer.get()).to_bytes(1,'little')
     elif (id == 'b'):
         time = int(led2Timer.get()).to_bytes(1,'little')
     elif (id == 'c'):
-        time = int(led2Timer.get()).to_bytes(1,'little')
+        time = int(led3Timer.get()).to_bytes(1,'little')
+    elif (id == 'd'):
+        time = int(led4Timer.get()).to_bytes(1,'little')
 
 
     try:
