@@ -52,7 +52,7 @@ led4Timer['values'] = ['1','3','5','9','12']
 led4Timer.grid(row=1,column=3)
 led4Timer.current(0)
 
-def sendToggleSignal(id):
+def sendTimingSignal(id):
     if (id == 'a'):
         time = int(led1Timer.get()).to_bytes(1,'little')
     elif (id == 'b'):
@@ -61,7 +61,6 @@ def sendToggleSignal(id):
         time = int(led3Timer.get()).to_bytes(1,'little')
     elif (id == 'd'):
         time = int(led4Timer.get()).to_bytes(1,'little')
-
 
     try:
         ser.write(id.encode())
@@ -73,10 +72,10 @@ def sendToggleSignal(id):
         updateStatusbar("Unable to send " + id)
 
 
-toggleLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendToggleSignal,'a'))
-toggleLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendToggleSignal,'b'))
-toggleLED3Btn = Button(controlFrame,text="Toggle 3",width="10",command=partial(sendToggleSignal,'c'))
-toggleLED4Btn = Button(controlFrame,text="Toggle 4",width="10",command=partial(sendToggleSignal,'d'))
+toggleLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendTimingSignal,'a'))
+toggleLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendTimingSignal,'b'))
+toggleLED3Btn = Button(controlFrame,text="Toggle 3",width="10",command=partial(sendTimingSignal,'c'))
+toggleLED4Btn = Button(controlFrame,text="Toggle 4",width="10",command=partial(sendTimingSignal,'d'))
 
 #Port values defined based on OS
 if not (platform.system().startswith("Win")):
