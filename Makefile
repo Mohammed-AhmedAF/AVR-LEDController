@@ -33,8 +33,8 @@ build:
 
 #rule to generate hex file
 .PHONY : build-hex
-build-hex:
-	avr-objcopy -O ihex main.o .main.hex
+build-hex: build
+	avr-objcopy -j .text -j .data -O ihex main.o main.hex
 
 #Added pwd to distinguish between two or more similar projects being
 #developed at the moment. The pwd command itself is not shown when

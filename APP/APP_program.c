@@ -81,6 +81,23 @@ void APP_vidReceiveControlFrame(void)
 			DIO_vidTogglePin(DIO_PORTA,DIO_PIN3);
 			u8TimeArr[3] = u8MessageArray[1];
 		}
+		/*Toggling only*/
+		else if (u8MessageArray[0] == 'A')
+		{
+			DIO_vidTogglePin(DIO_PORTA,DIO_PIN0);
+		}
+		else if (u8MessageArray[0] == 'B')
+		{
+			DIO_vidTogglePin(DIO_PORTA,DIO_PIN1);
+		}
+		else if (u8MessageArray[0] == 'C')
+		{
+			DIO_vidTogglePin(DIO_PORTA,DIO_PIN2);
+		}
+		else if (u8MessageArray[0] == 'D')
+		{
+			DIO_vidTogglePin(DIO_PORTA,DIO_PIN3);
+		}
 		
 	}	
 }

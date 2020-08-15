@@ -61,6 +61,8 @@ def sendTimingSignal(id):
         time = int(led3Timer.get()).to_bytes(1,'little')
     elif (id == 'd'):
         time = int(led4Timer.get()).to_bytes(1,'little')
+    else:
+        time = 0;
 
     try:
         ser.write(id.encode())
@@ -71,11 +73,24 @@ def sendTimingSignal(id):
     except:
         updateStatusbar("Unable to send " + id)
 
+def sendTurnSignal(id):
+    try:
+        ser.write(id.encode())
+        ser.write(b't')
+        ser.write(b't')
+        ser.write(b't')
+        updateStatusbar("Sent " + id)
+    except:
+        updateStatusbar("Unable to send " + id)
 
-toggleLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendTimingSignal,'a'))
-toggleLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendTimingSignal,'b'))
-toggleLED3Btn = Button(controlFrame,text="Toggle 3",width="10",command=partial(sendTimingSignal,'c'))
-toggleLED4Btn = Button(controlFrame,text="Toggle 4",width="10",command=partial(sendTimingSignal,'d'))
+
+toggleLED1Btn = Button(controlFrame,text="Time 1",width="10",command=partial(sendTimingSignal,'a'))
+toggleLED2Btn = Button(controlFrame,text="Time 2",width="10",command=partial(sendTimingSignal,'b'))
+toggleLED3Btn = Button(controlFrame,text="Time 3",width="10",command=partial(sendTimingSignal,'c'))
+toggleLED4Btn = Button(controlFrame,text="Time 4",width="10",command=partial(sendTimingSignal,'d'))
+
+turnLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendTurnSignal,'A'))
+turnLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendTurnSignal,'B'))
 
 #Port values defined based on OS
 if not (platform.system().startswith("Win")):
@@ -140,5 +155,8 @@ toggleLED1Btn.grid(row=0,column=0,padx=10,pady=10,sticky=N+S)
 toggleLED2Btn.grid(row=0,column=1,padx=10,pady=10,sticky=N+S)
 toggleLED3Btn.grid(row=0,column=2,padx=10,pady=10,sticky=N+S)
 toggleLED4Btn.grid(row=0,column=3,padx=10,pady=10,sticky=N+S)
+
+turnLED1Btn.grid(row=2,column=0,padx=10,pady=10,sticky=N+S)
+turnLED2Btn.grid(row=2,column=1,padx=10,pady=10,sticky=N+S)
 
 root.mainloop()
