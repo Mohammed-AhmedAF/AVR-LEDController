@@ -9,5 +9,7 @@ void APP_vidReceiveControlFrame(void);
 
 /*Macros*/
 #define MESSAGESIZE 4
+/*OVF times for 1 second*/
+#define SECOND_OVF 31500
 
 #endif

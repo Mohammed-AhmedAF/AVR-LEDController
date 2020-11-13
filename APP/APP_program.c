@@ -44,7 +44,7 @@ void APP_vidInit(void)
 void APP_vidCountOneSec(void)
 {
 	u16OVFCount++;
-	if (u16OVFCount == 31500)
+	if (u16OVFCount == SECOND_OVF)
 	{
 		u8SecFlag = 1;
 		u16OVFCount = 0;
