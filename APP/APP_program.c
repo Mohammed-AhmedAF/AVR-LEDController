@@ -12,6 +12,7 @@ volatile u8 u8Byte = 0;
 volatile u8 u8index = 0;
 volatile u8 u8MessageArray[MESSAGESIZE];
 volatile u8 u8TimeArr[4];
+/*Flag that is toggled when a second passes*/
 volatile u8 u8SecFlag = 0;
 
 void APP_vidInit(void)
