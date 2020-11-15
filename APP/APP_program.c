@@ -6,7 +6,7 @@
 #include "INTERRUPTS_interface.h"
 #include "APP_interface.h"
 
-
+/*Count the number of overflows*/
 volatile u16 u16OVFCount = 0;
 volatile u8 u8Byte = 0;
 volatile u8 u8index = 0;
