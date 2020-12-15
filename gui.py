@@ -73,7 +73,7 @@ def sendTimingSignal(id):
     except:
         updateStatusbar("Unable to send " + id)
 
-def sendTurnSignal(id):
+def sendToggleSignal(id):
     try:
         ser.write(id.encode())
         ser.write(b't')
@@ -89,8 +89,8 @@ toggleLED2Btn = Button(controlFrame,text="Time 2",width="10",command=partial(sen
 toggleLED3Btn = Button(controlFrame,text="Time 3",width="10",command=partial(sendTimingSignal,'c'))
 toggleLED4Btn = Button(controlFrame,text="Time 4",width="10",command=partial(sendTimingSignal,'d'))
 
-turnLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendTurnSignal,'A'))
-turnLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendTurnSignal,'B'))
+turnLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendToggleSignal,'A'))
+turnLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendToggleSignal,'B'))
 
 #Port values defined based on OS
 if not (platform.system().startswith("Win")):
