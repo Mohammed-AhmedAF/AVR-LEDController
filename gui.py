@@ -137,7 +137,6 @@ toggleLED4Btn = Button(controlFrame,text="Time 4",width="10",command=partial(sen
 turnLED1Btn = Button(controlFrame,text="Toggle 1",width="10",command=partial(sendToggleSignal,'A'))
 turnLED2Btn = Button(controlFrame,text="Toggle 2",width="10",command=partial(sendToggleSignal,'B'))
 
-
 connectBtn = Button(connectionFrame,text="Connect",padx=10,pady=5,command=connectByUART)
 
 statusLabel.grid(row=1,column=0,columnspan=3,sticky=E+W,padx=10)
