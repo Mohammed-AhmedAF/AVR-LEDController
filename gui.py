@@ -11,7 +11,7 @@ def updateStatusbar(message):
     """
     statusLabel['text'] = message
 
-def sendTimingSignal(id):
+def sendTimingSignal(id: char):
     if (id == 'a'):
         time = int(led1Timer.get()).to_bytes(1,'little')
     elif (id == 'b'):
@@ -32,7 +32,7 @@ def sendTimingSignal(id):
     except:
         updateStatusbar("Unable to send " + id)
 
-def sendToggleSignal(id):
+def sendToggleSignal(id: char):
     try:
         ser.write(id.encode())
         ser.write(b't')
