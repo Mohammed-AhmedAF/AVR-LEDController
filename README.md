@@ -7,6 +7,7 @@ Control LEDs by toggling or turning each of them on for a specfic time.
 
 ## Notes
 `pyserial` is used in the python script. To install it on your system run `pip3 install pyserial`.
+GUI widgets are from tkinter, the standard GUI library of Python.
 
 Turn GUI Python script into an executable using `pyinstaller.exe --noconsole ./gui.py`
 
