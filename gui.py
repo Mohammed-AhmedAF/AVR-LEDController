@@ -6,6 +6,9 @@ from functools import partial
 import serial
 
 def updateStatusbar(message):
+    """
+    Takes a message to be put on the statusbar of the GUI.
+    """
     statusLabel['text'] = message
 
 def sendTimingSignal(id):
