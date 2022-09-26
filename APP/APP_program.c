@@ -7,13 +7,13 @@
 #include "APP_interface.h"
 
 /*Count the number of overflows*/
-volatile u16 u16OVFCount = 0;
-volatile u8 u8Byte = 0;
-volatile u8 u8index = 0;
-volatile u8 u8MessageArray[MESSAGESIZE];
-volatile u8 u8TimeArr[4];
+static volatile u16 u16OVFCount = 0;
+static volatile u8 u8Byte = 0;
+static volatile u8 u8index = 0;
+static volatile u8 u8MessageArray[MESSAGESIZE];
+static volatile u8 u8TimeArr[4];
 /*Flag that is toggled when a second passes*/
-volatile u8 u8SecFlag = 0;
+static volatile u8 u8SecFlag = 0;
 
 void APP_vidInit(void)
 {
