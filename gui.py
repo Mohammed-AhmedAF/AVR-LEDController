@@ -5,7 +5,7 @@ from tkinter import ttk
 from functools import partial
 import serial
 
-def updateStatusbar(message):
+def updateStatusbar(message : str) -> None:
     """
     Takes a message to be put on the statusbar of the GUI.
     """
